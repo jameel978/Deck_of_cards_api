@@ -5,16 +5,17 @@ from io import StringIO
 import time
 
 # Import your test modules
-from Tests.test_piles import *
-from Tests.test_decks import *
+from Tests.Test_piles import *
+from Tests.Test_decks import *
 
 
 def run_test(current_test):
     suite = unittest.TestSuite()
     suite.addTest(init_test(current_test))
     # Run the test suite
+    current_test_start_time = time.time()
     result = unittest.TextTestRunner(stream=StringIO(), verbosity=2).run(suite)
-    time_spent = result.collectedDurations[0][1]
+    time_spent = time.time() - current_test_start_time
     if result.wasSuccessful():
         print(f'{current_test[1]} Passed!, run time {time_spent:.2f} sec')
     else:
@@ -35,7 +36,6 @@ if __name__ == "__main__":
     # List of test classes
     test_classes = [DeckOfCards_decks_tests, DeckOfCards_piles_tests]
     all_test_cases = prepair_all_tests(test_classes)
-
 
     #read from config
     test_config = read_json("Config/Test_runner.json")

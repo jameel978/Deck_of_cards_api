@@ -1,5 +1,5 @@
 import unittest
-from Infra.api_wrapper import APIWrapper
+from Infra.Api_wrapper import APIWrapper
 from Logic.Deck_of_cards import DeckOfCards
 from Logic.Utils import *
 
@@ -24,7 +24,7 @@ class DeckOfCards_piles_tests(unittest.TestCase):
     def test_creating_multi_card_piles(self):
         card_deck = self.api_logic.draw_a_card(self.deck_id, count=5)
         pulled_cards_first_hand = get_cards_names_from_json(card_deck)
-        piles_card_deck = self.api_logic.add_to_piles(self.deck_id,"Jameel_pile_1",pulled_cards_first_hand)
+        self.api_logic.add_to_piles(self.deck_id,"Jameel_pile_1",pulled_cards_first_hand)
         card_deck = self.api_logic.draw_a_card(self.deck_id, count=4)
         pulled_cards_second_hand = get_cards_names_from_json(card_deck)
         piles_card_deck = self.api_logic.add_to_piles(self.deck_id, "Jameel_pile_2", pulled_cards_second_hand)
@@ -37,7 +37,7 @@ class DeckOfCards_piles_tests(unittest.TestCase):
     def test_creating_pull_from_card_piles(self):
         card_deck = self.api_logic.draw_a_card(self.deck_id, count=5)
         card_names = get_cards_names_from_json(card_deck)
-        piles_card_deck = self.api_logic.add_to_piles(self.deck_id,"Jameel_pile_1",card_names)
+        self.api_logic.add_to_piles(self.deck_id,"Jameel_pile_1",card_names)
         empty_card_piles = self.api_logic.draw_from_pile(self.deck_id, "Jameel_pile_1", card_names)
         pulled_cards = get_cards_names_from_json(empty_card_piles)
         self.assertEqual(pulled_cards,card_names)
